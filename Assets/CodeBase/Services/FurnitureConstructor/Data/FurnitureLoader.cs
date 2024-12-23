@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CodeBase.Services.FurnitureConstructor.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor
+namespace CodeBase.Services.FurnitureConstructor.Data
 {
     public class FurnitureLoader
     {

@@ -9,11 +9,11 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
         private readonly MaterialModifier _materialModifier;
         private readonly SizeModifier _sizeModifier;
 
-        public Modifier()
+        public Modifier(Material glassMaterial)
         {
             _styleModifier = new StyleModifier();
             _sizeModifier = new SizeModifier();
-            _materialModifier = new MaterialModifier();
+            _materialModifier = new MaterialModifier(glassMaterial);
         }
 
         public void SetStartModifier(FurnitureData data, GameObject prefab)

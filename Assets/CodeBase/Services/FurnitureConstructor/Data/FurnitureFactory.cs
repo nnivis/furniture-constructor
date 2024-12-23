@@ -13,10 +13,10 @@ namespace CodeBase.Services.FurnitureConstructor.Data
         private readonly FurnitureLoader _furnitureLoader;
         private readonly Modifier.Modifier _modifier;
 
-        public FurnitureFactory(FurnitureLoader furnitureLoader)
+        public FurnitureFactory(FurnitureLoader furnitureLoader, Material glassMaterial)
         {
             _furnitureLoader = furnitureLoader;
-            _modifier = new Modifier.Modifier();
+            _modifier = new Modifier.Modifier(glassMaterial);
         }
 
         public Furniture CreateFurniture(GameObject prefab)

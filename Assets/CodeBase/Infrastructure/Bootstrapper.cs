@@ -7,7 +7,7 @@ namespace CodeBase.Infrastructure
     {
         [SerializeField] private GameObject gameObject1Example;
         [SerializeField] private GameObject gameObject2Example;
-        
+
         [SerializeField] private FurnitureHandler furnitureHandler;
 
         private void Start()

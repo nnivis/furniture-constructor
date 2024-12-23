@@ -1,7 +1,8 @@
 using System.Text;
+using CodeBase.Services.FurnitureConstructor.Data;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor.Data
+namespace CodeBase.Services.FurnitureConstructor
 {
     public class Furniture : MonoBehaviour
     {
@@ -18,7 +19,7 @@ namespace CodeBase.Services.FurnitureConstructor.Data
 
             _modifier.SetStartModifier(Data, gameObject);
 
-            DebugFurnitureData();
+           // DebugFurnitureData();
         }
 
 

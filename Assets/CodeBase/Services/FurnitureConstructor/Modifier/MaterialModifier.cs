@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Services.FurnitureConstructor.Data;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
     public class MaterialModifier
     {
         private const int I = 4;
+        private Material _glassMaterial;
+        public MaterialModifier(Material material) => _glassMaterial = material;
 
         public void InitializeMaterial(FurnitureData data, GameObject prefab)
         {
@@ -55,6 +58,7 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
             string texturePath)
         {
             var renderers = prefab.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+            HashSet<Renderer> processedRenderers = new HashSet<Renderer>();
 
             Texture2D texture = null;
             if (!string.IsNullOrEmpty(texturePath))
@@ -64,20 +68,53 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
 
             foreach (var renderer in renderers)
             {
-                if (renderer.name.Contains(nameInModel))
+                if (!processedRenderers.Contains(renderer))
                 {
-                    if (renderer.sharedMaterial != null)
+                    if (renderer.name.Contains(nameInModel))
                     {
-                        Material materialCopy = Object.Instantiate(renderer.sharedMaterial);
-
-                        if (texture != null)
+                        if (renderer.sharedMaterial != null)
                         {
-                            materialCopy.SetTexture("baseColorTexture", texture);
-                            ApplyTextureTiling(materialCopy, data, texturePath);
-                        }
+                            Material materialCopy = Object.Instantiate(renderer.sharedMaterial);
 
-                        renderer.sharedMaterial = materialCopy;
+                            if (texture != null)
+                            {
+                                materialCopy.SetTexture("baseColorTexture", texture);
+                                ApplyTextureTiling(materialCopy, data, texturePath);
+                            }
+
+                            renderer.sharedMaterial = materialCopy;
+                        }
                     }
+
+                    if (renderer.name.Contains("acrylic") || renderer.name.Contains("glass"))
+                    {
+                        ApplyAcrylicMaterial(prefab, "acrylic");
+                    }
+
+                    processedRenderers.Add(renderer);
+                }
+            }
+        }
+
+
+        private void ApplyAcrylicMaterial(GameObject prefab, string acrylicObjectName)
+        {
+            // Получаем все SkinnedMeshRenderer из дочерних объектов
+            var renderers = prefab.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+
+            if (_glassMaterial == null)
+            {
+                Debug.LogWarning("Glass material is not set. Please assign a material to _glassMaterial.");
+                return;
+            }
+
+            foreach (var renderer in renderers)
+            {
+                // Проверяем, содержит ли объект в имени искомую строку
+                if (!string.IsNullOrEmpty(acrylicObjectName) && renderer.name.Contains(acrylicObjectName))
+                {
+                    renderer.sharedMaterial = _glassMaterial;
+                    Debug.Log($"Applied glass material to: {renderer.name}");
                 }
             }
         }
@@ -93,11 +130,7 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
                 return;
             }
 
-         //   Debug.Log(material.GetTextureScale("baseColorTexture"));
-            
             material.SetTextureScale("baseColorTexture", new Vector2(materialInfo.width / I, materialInfo.height / I));
-
-           // Debug.Log(material.GetTextureScale("baseColorTexture"));
         }
     }
 }

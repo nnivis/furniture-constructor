@@ -27,6 +27,9 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
 
             UpdateInfluences(data, prefab);
             UpdateUVs(data, prefab);
+            
+            _blockStackModifier.UpdateBlocksByHeight(prefab, _sizes[0]);
+            
         }
 
         public void SetSize(FurnitureData data, GameObject prefab, MorphType type, float newValue)
@@ -41,6 +44,11 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
 
                 UpdateInfluences(data, prefab);
                 UpdateUVs(data, prefab);
+            }
+
+            if (type == MorphType.Height)
+            {
+                _blockStackModifier.UpdateBlocksByHeight(prefab, newValue);
             }
         }
 
@@ -96,7 +104,6 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
                     updatedMesh.uv = newUVs;
                     updatedMesh.RecalculateBounds();
 
-                    // Назначаем обновленный Mesh
                     renderer.sharedMesh = updatedMesh;
                 }
             }

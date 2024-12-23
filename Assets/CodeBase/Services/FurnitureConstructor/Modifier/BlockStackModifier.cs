@@ -18,7 +18,7 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
             {
                 Transform child = parent.transform.GetChild(i);
 
-                if (child.name.Contains(BlockKeyword)) 
+                if (child.name.Contains(BlockKeyword))
                     child.gameObject.SetActive(true);
 
                 if (child.name.Contains(TempBlockKeyword))
@@ -41,6 +41,7 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
             {
                 float topHeight = 0;
 
+                // Вычисляем высоту верхнего блока, если он существует
                 if (topBlock != null)
                 {
                     var topBounds = GetBounds(topBlock);
@@ -51,9 +52,11 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
                 float blockHeight = baseBounds.max.y - baseBounds.min.y;
                 float currentY = baseBlock.transform.position.y;
 
-                int numBlocks = Mathf.FloorToInt((targetHeight - topHeight - currentY) / blockHeight) + 4;
+                // Количество дополнительных блоков
+                int numBlocks = Mathf.FloorToInt((targetHeight - topHeight - currentY) / blockHeight);
+                numBlocks = Mathf.Max(1, numBlocks); // Гарантируем, что хотя бы один блок останется
 
-                var newBlocks = new List<GameObject> { baseBlock };
+                var newBlocks = new List<GameObject> {baseBlock};
 
                 for (int i = 0; i < numBlocks - 1; i++)
                 {
@@ -66,9 +69,18 @@ namespace CodeBase.Services.FurnitureConstructor.Modifier
                         position.z
                     );
                     currentY = newBlock.transform.position.y;
+
+                    // Проверяем, что новый блок не приближается слишком близко к верхней полке
+                    if (topBlock != null && (currentY + blockHeight > targetHeight - topHeight))
+                    {
+                        Object.Destroy(newBlock); 
+                        break;
+                    }
+
                     newBlocks.Add(newBlock);
                 }
 
+                // Скрываем последний блок, если он превышает высоту
                 GameObject lastBlock = newBlocks[newBlocks.Count - 1];
                 if (lastBlock.transform.position.y > targetHeight - topHeight - 2 * blockHeight)
                 {

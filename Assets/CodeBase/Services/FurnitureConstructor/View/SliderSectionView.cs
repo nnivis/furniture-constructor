@@ -69,16 +69,5 @@ namespace CodeBase.Services.FurnitureConstructor.View
                 text.text = $"{Mathf.RoundToInt(value * 100)}";
             }
         }
-
-        private TextMeshProUGUI GetTextByMorphType(MorphType type)
-        {
-            return type switch
-            {
-                MorphType.Height => heightText,
-                MorphType.Width => widthText,
-                MorphType.Depth => depthText,
-                _ => null
-            };
-        }
     }
 }

@@ -13,13 +13,32 @@
                         { "label": "Depth", "min": 0.91, "max": 1.22 }
                     ],
                     "materials": [
-                        { "label": "Desk Top", "name_in_model" : "desk-top", "types": "MaterialTypes" },
-                        { "label": "Desk Modesty","name_in_model" : "desk-modesty", "types": "MaterialTypes" },
-                        { "label": "Desk Gable", "name_in_model" : "desk-gable", "types": "MaterialTypes" }
+                        { "label": "Desk Top", "name_in_model": "desk-top", "types": "MaterialTypes" },
+                        { "label": "Desk Modesty", "name_in_model": "desk-modesty", "types": "MaterialTypes" },
+                        { "label": "Desk Gable", "name_in_model": "desk-gable", "types": "MaterialTypes" }
                     ],
                     "styles": [
                         { "label": "Modesty Style", "types": "ModestyStyles" },
                         { "label": "Grommet Style", "types": "GrommetStyles" }
+                    ]
+                },
+                {
+                    "name": "DESK-FMB",
+                    "model": "assets/models/glb/DESK-FMB.glb",
+                    "start": 1.20,
+                    "morph": [
+                        { "label": "Height", "min": 0.70 },
+                        { "label": "Width", "min": 1.60, "max": 2.90 },
+                        { "label": "Depth", "min": 0.90, "max": 1.25 }
+                    ],
+                    "materials": [
+                        { "label": "Desk Top", "name_in_model": "desk-top", "types": "MaterialTypes" },
+                        { "label": "Desk Modesty", "name_in_model": "fml-modesty", "types": "MaterialTypes" },
+                        { "label": "Desk Gable", "name_in_model": "desk-gable", "types": "MaterialTypes" }
+                    ],
+                    "styles": [
+                        { "label": "Modesty Style", "types": "AcrylicLaminate" },
+                        { "label": "Grommet Style", "types": "GrommetFStyles" }
                     ]
                 }
             ]
@@ -37,10 +56,30 @@
                         { "label": "Depth", "min": 0.38, "max": 0.61 }
                     ],
                     "materials": [
-                        { "label": "Body", "name_in_model" : "cabinet-body", "types": "MaterialTypes" },
-                        { "label": "Top", "name_in_model" : "cabinet-top", "types": "MaterialTypes" },
-                        { "label": "Glass","name_in_model" : "glass", "types": "GlassTypes" }
+                        { "label": "Body", "name_in_model": "cabinet-body", "types": "MaterialTypes" },
+                        { "label": "Top", "name_in_model": "cabinet-top", "types": "MaterialTypes" },
+                        { "label": "Glass", "name_in_model": "glass", "types": "GlassTypes" }
                     ]
+                },
+                {
+                    "name": "LST-RQD-OP-PD",
+                    "model": "assets/models/glb/LST-RQD-OP-PD.glb",
+                    "start": 1.52,
+                    "morph": [
+                        { "label": "Height", "min": 1.52, "max": 3.05 },
+                        { "label": "Width", "min": 0.46, "max": 1.52 },
+                        { "label": "Depth", "min": 0.39, "max": 0.62 }
+                    ],
+                    "materials": [
+                        { "label": "Laminate Face", "name_in_model": "cabinet-face-laminate", "types": "MaterialTypes" },
+                        { "label": "Body", "name_in_model": "cabinet-top", "types": "MaterialTypes" },
+                        { "label": "Top", "name_in_model": "cabinet-body", "types": "MaterialTypes" }
+                    ],
+                    "styles": [
+                    { "label": "Handle", "types": "NickelStyles" },
+                    { "label": "Lock", "types": "LockStyles" }
+                ]
+                    
                 }
             ]
         }
@@ -54,16 +93,17 @@
         "GrommetStyles": [
             { "label": "COG", "name_in_model": "grommet-cog" },
             { "label": "NG", "name_in_model": "grommet-ng" }
-        
         ],
         "MaterialTypes": [
             { "label": "Seamless 1", "texture": "/assets/textures/seamless-01.jpg", "width": 35.0, "height": 35.0 },
             { "label": "Seamless 2", "texture": "/assets/textures/seamless-02.jpg", "width": 35.0, "height": 35.0 },
-            { "label": "Oak", "texture": "/assets/textures/Oak.jpg","width": 35.0, "height": 35.0 }
+            { "label": "Oak", "texture": "/assets/textures/Oak.jpg", "width": 35.0, "height": 35.0 },
+            { "label": "Mahogany", "texture": "/assets/textures/Mahogany.jpg", "width": 35.0, "height": 35.0 },
+            { "label": "W155", "texture": "/assets/textures/W155.jpg", "width": 35.0, "height": 35.0 }
         ],
         "GlassTypes": [
-            { "label": "Clear", "texture": "/assets/textures/frosted-0.jpg","width": 35.0, "height": 35.0 },
-            { "label": "50% Frosted", "texture": "/assets/textures/frosted-50.jpg","width": 35.0, "height": 35.0 }
+            { "label": "Clear", "texture": "/assets/textures/frosted-0.jpg", "width": 35.0, "height": 35.0 },
+            { "label": "50% Frosted", "texture": "/assets/textures/frosted-50.jpg", "width": 35.0, "height": 35.0 }
         ],
         "AdditionalModestyStyles": [
             { "label": "Acrylic", "name_in_model": "modesty-16ma" }
@@ -71,6 +111,31 @@
         "AdvancedGrommetStyles": [
             { "label": "NG", "name_in_model": "grommet-ng" },
             { "label": "LG", "name_in_model": "grommet-lg" }
+        ],
+        "AcrylicLaminate": [
+            { "label": "Acrylic", "name_in_model": "modesty-16ma" },
+            { "label": "Laminate", "name_in_model": "modesty-16ml" }
+        ],
+        "GrommetFStyles": [
+            {"label": "NG", "name_in_model": "grommet-ng"},
+            {"label": "LG", "name_in_model": "grommet-lg"},
+            {"label": "CG", "name_in_model": "grommet-cg"},
+            {"label": "RG", "name_in_model": "grommet-rg"},
+            {"label": "LRG", "name_in_model": "grommet-lrg"}
+        ],
+        "LockStyles": [
+            {"label": "Lock", "name_in_model": "filing-handle-5-bar-pull-nickel"},
+            {"label": "No Lock", "name_in_model": "nolock"}
+        ],
+        "NickelStyles": [
+            {"label": "Bar 5 Pull Nickel", "name_in_model": "filing-handle-5-bar-pull-nickel"},
+            {"label": "Loop 5 Black", "name_in_model": "filing-handle-5-loop-black"},
+            {"label": "Loop 5 Nickel", "name_in_model": "filing-handle-5-loop-nickel"},
+            {"label": "Square 5 Nickel", "name_in_model": "filing-handle-5-square-nickel"},
+            {"label": "Strait 5 Pull Black", "name_in_model": "filing-handle-5-strait-pull-black"},
+            {"label": "Strait 5 Pull Silver", "name_in_model": "filing-handle-5-strait-pull-silver"},
+            {"label": "Waterfall 5 Black", "name_in_model": "filing-handle-5-waterfall-black"}
         ]
+        
     }
 }

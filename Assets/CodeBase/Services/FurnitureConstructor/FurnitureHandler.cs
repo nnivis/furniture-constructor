@@ -10,7 +10,8 @@ namespace CodeBase.Services.FurnitureConstructor
         public IEnumerable<Furniture> Furnitures => _furnitures;
 
         [SerializeField] private FurniturePanel furniturePanel;
-
+        [SerializeField] private Material glassMaterial;
+        
         private FurnitureFactory _furnitureFactory;
         private Furniture _currentFurniture;
         private List<Furniture> _furnitures = new List<Furniture>();
@@ -21,7 +22,7 @@ namespace CodeBase.Services.FurnitureConstructor
             _furnitureLoader = new FurnitureLoader();
             _furnitureLoader.LoadDatabase();
 
-            _furnitureFactory = new FurnitureFactory(_furnitureLoader);
+            _furnitureFactory = new FurnitureFactory(_furnitureLoader,glassMaterial);
             furniturePanel.Initialize(Furnitures);
 
             furniturePanel.OnMaterialChange += ChangeMaterialCurrentFurniture;
