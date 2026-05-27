@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using CodeBase.Services.FurnitureConstructor.Data;
+using CodeBase.Data.FurnitureConstructor;
 using System.Collections.Generic;
 
-namespace CodeBase.Services.FurnitureConstructor.Modifier
+namespace CodeBase.Domain.FurnitureConstructor.Modifiers
 {
     public class SizeModifier
     {

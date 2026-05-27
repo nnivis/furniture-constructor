@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Services.FurnitureConstructor.Data;
+using CodeBase.Data.FurnitureConstructor;
+using CodeBase.Domain.FurnitureConstructor;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor.View
+namespace CodeBase.UI.FurnitureConstructor
 {
     public class FurniturePanel : MonoBehaviour
     {

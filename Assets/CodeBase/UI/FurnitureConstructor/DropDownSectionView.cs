@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace CodeBase.Services.FurnitureConstructor.View
+namespace CodeBase.UI.FurnitureConstructor
 {
     public class DropDownSectionView : MonoBehaviour
     {

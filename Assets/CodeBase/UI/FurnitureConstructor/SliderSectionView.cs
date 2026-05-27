@@ -1,10 +1,10 @@
 ﻿using System;
-using CodeBase.Services.FurnitureConstructor.Data;
+using CodeBase.Data.FurnitureConstructor;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.Services.FurnitureConstructor.View
+namespace CodeBase.UI.FurnitureConstructor
 {
     public class SliderSectionView : MonoBehaviour
     {

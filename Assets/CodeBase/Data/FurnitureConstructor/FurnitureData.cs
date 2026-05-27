@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor.Data
+namespace CodeBase.Data.FurnitureConstructor
 {
     [Serializable]
     public class Database

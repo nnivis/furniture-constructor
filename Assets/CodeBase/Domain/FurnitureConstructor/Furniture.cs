@@ -1,17 +1,18 @@
 using System.Text;
-using CodeBase.Services.FurnitureConstructor.Data;
+using CodeBase.Data.FurnitureConstructor;
+using CodeBase.Domain.FurnitureConstructor.Modifiers;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor
+namespace CodeBase.Domain.FurnitureConstructor
 {
     public class Furniture : MonoBehaviour
     {
         public GameObject Prefab { get; private set; }
         public FurnitureData Data { get; private set; }
 
-        private Modifier.Modifier _modifier;
+        private Modifier _modifier;
 
-        public void Initialize(GameObject prefab, FurnitureData data, Modifier.Modifier modifier)
+        public void Initialize(GameObject prefab, FurnitureData data, Modifier modifier)
         {
             Prefab = prefab;
             Data = data;

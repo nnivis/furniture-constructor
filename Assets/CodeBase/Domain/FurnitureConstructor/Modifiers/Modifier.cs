@@ -1,7 +1,7 @@
-﻿using CodeBase.Services.FurnitureConstructor.Data;
+﻿using CodeBase.Data.FurnitureConstructor;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor.Modifier
+namespace CodeBase.Domain.FurnitureConstructor.Modifiers
 {
     public class Modifier
     {

@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Data.FurnitureConstructor;
+using CodeBase.Domain.FurnitureConstructor;
+using CodeBase.Domain.FurnitureConstructor.Modifiers;
+using CodeBase.Infrastructure.DataProvider;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor.Data
+namespace CodeBase.Services.FurnitureConstructor
 {
     public class FurnitureFactory
     {
@@ -11,12 +15,12 @@ namespace CodeBase.Services.FurnitureConstructor.Data
         private const string Depth = "depth";
 
         private readonly FurnitureLoader _furnitureLoader;
-        private readonly Modifier.Modifier _modifier;
+        private readonly Modifier _modifier;
 
         public FurnitureFactory(FurnitureLoader furnitureLoader, Material glassMaterial)
         {
             _furnitureLoader = furnitureLoader;
-            _modifier = new Modifier.Modifier(glassMaterial);
+            _modifier = new Modifier(glassMaterial);
         }
 
         public Furniture CreateFurniture(GameObject prefab)

@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor.View
+namespace CodeBase.UI.FurnitureConstructor
 {
     public class DropDownView : MonoBehaviour
     {

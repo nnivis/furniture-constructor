@@ -1,6 +1,8 @@
 using System.Collections.Generic;
-using CodeBase.Services.FurnitureConstructor.Data;
-using CodeBase.Services.FurnitureConstructor.View;
+using CodeBase.Data.FurnitureConstructor;
+using CodeBase.Domain.FurnitureConstructor;
+using CodeBase.Infrastructure.DataProvider;
+using CodeBase.UI.FurnitureConstructor;
 using UnityEngine;
 
 namespace CodeBase.Services.FurnitureConstructor

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeBase.Services.FurnitureConstructor.Modifier
+namespace CodeBase.Domain.FurnitureConstructor.Modifiers
 {
     public class BlockStackModifier
     {

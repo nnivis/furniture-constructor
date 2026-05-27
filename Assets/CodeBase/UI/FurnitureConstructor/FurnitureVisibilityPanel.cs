@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.Services.FurnitureConstructor.View
+namespace CodeBase.UI.FurnitureConstructor
 {
     public class FurnitureVisibilityPanel : MonoBehaviour
     {
