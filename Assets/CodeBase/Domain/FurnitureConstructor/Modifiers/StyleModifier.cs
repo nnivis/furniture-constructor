@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data.FurnitureConstructor;
 using UnityEngine;
@@ -8,16 +8,15 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
     public class StyleModifier
     {
         private readonly Dictionary<string, string> _activeStyles = new Dictionary<string, string>();
+        private readonly HashSet<string> _allNameInModels = new HashSet<string>();
 
         public void InitializeStyle(FurnitureData data, GameObject prefab)
         {
             if (data?.Parts == null || prefab == null)
-            {
                 return;
-            }
 
             _activeStyles.Clear();
-            var allNameInModels = new HashSet<string>();
+            _allNameInModels.Clear();
             var activeNameInModels = new HashSet<string>();
 
             foreach (var part in data.Parts)
@@ -26,31 +25,28 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
                 {
                     foreach (var style in styleEntry.Value)
                     {
-                        allNameInModels.Add(style.nameInModel);
+                        _allNameInModels.Add(style.nameInModel);
                     }
 
                     if (styleEntry.Value.Count > 0)
                     {
                         var startStyle = styleEntry.Value[0];
                         activeNameInModels.Add(startStyle.nameInModel);
-                        _activeStyles[styleEntry.Key] = startStyle.label; 
+                        _activeStyles[styleEntry.Key] = startStyle.label;
                     }
                 }
             }
 
-            ApplyStyleToChildren(prefab, allNameInModels, activeNameInModels);
+            ApplyStyleToChildren(prefab, activeNameInModels);
         }
 
         public void SetStyleByKeyAndLabel(FurnitureData data, GameObject prefab, string styleKey, string styleLabel)
         {
             if (data?.Parts == null || prefab == null)
-            {
                 return;
-            }
 
             _activeStyles[styleKey] = styleLabel;
 
-            var allNameInModels = new HashSet<string>();
             var activeNameInModels = new HashSet<string>();
 
             foreach (var part in data.Parts)
@@ -59,8 +55,6 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
                 {
                     foreach (var styleInfo in styleEntry.Value)
                     {
-                        allNameInModels.Add(styleInfo.nameInModel);
-
                         if (_activeStyles.TryGetValue(styleEntry.Key, out var activeLabel) &&
                             styleInfo.label == activeLabel)
                         {
@@ -70,26 +64,23 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
                 }
             }
 
-            ApplyStyleToChildren(prefab, allNameInModels, activeNameInModels);
+            ApplyStyleToChildren(prefab, activeNameInModels);
         }
 
-        private void ApplyStyleToChildren(GameObject parent, HashSet<string> allNameInModels,
-            HashSet<string> activeNameInModels)
+        private void ApplyStyleToChildren(GameObject parent, HashSet<string> activeNameInModels)
         {
             foreach (Transform child in parent.transform)
             {
                 string childName = child.name;
 
-                if (allNameInModels.Any(nameInModel => childName.Contains(nameInModel)))
+                if (_allNameInModels.Any(n => childName.Contains(n)))
                 {
-                    bool isActive = activeNameInModels.Any(activeName => childName.Contains(activeName));
+                    bool isActive = activeNameInModels.Any(n => childName.Contains(n));
                     child.gameObject.SetActive(isActive);
                 }
 
                 if (child.childCount > 0)
-                {
-                    ApplyStyleToChildren(child.gameObject, allNameInModels, activeNameInModels);
-                }
+                    ApplyStyleToChildren(child.gameObject, activeNameInModels);
             }
         }
     }

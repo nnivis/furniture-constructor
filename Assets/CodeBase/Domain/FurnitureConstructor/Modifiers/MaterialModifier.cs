@@ -7,7 +7,7 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
 {
     public class MaterialModifier
     {
-        private const int I = 4;
+        private const int TextureTilingScale = 4;
         private Material _glassMaterial;
         public MaterialModifier(Material material) => _glassMaterial = material;
 
@@ -78,7 +78,7 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
 
                             if (texture != null)
                             {
-                                materialCopy.SetTexture("baseColorTexture", texture);
+                                materialCopy.SetTexture(FurnitureConstants.BaseColorTexture, texture);
                                 ApplyTextureTiling(materialCopy, data, texturePath);
                             }
 
@@ -86,9 +86,9 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
                         }
                     }
 
-                    if (renderer.name.Contains("acrylic") || renderer.name.Contains("glass"))
+                    if (renderer.name.Contains(FurnitureConstants.Acrylic) || renderer.name.Contains(FurnitureConstants.Glass))
                     {
-                        ApplyAcrylicMaterial(prefab, "acrylic");
+                        ApplyAcrylicMaterial(prefab, FurnitureConstants.Acrylic);
                     }
 
                     processedRenderers.Add(renderer);
@@ -130,7 +130,7 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
                 return;
             }
 
-            material.SetTextureScale("baseColorTexture", new Vector2(materialInfo.width / I, materialInfo.height / I));
+            material.SetTextureScale(FurnitureConstants.BaseColorTexture, new Vector2(materialInfo.width / TextureTilingScale, materialInfo.height / TextureTilingScale));
         }
     }
 }

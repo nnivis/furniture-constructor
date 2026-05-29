@@ -9,7 +9,7 @@ namespace CodeBase.UI.FurnitureConstructor
         public IReadOnlyList<DropDownView> DropDownViews => _dropDownViews;
         public int DropDownCount => _dropDownViews.Count;
 
-        [SerializeField] private RectTransform container;
+        [SerializeField] private RectTransform _container;
         private List<DropDownView> _dropDownViews = new List<DropDownView>();
 
         public void AddDropDownView(
@@ -18,7 +18,7 @@ namespace CodeBase.UI.FurnitureConstructor
             List<string> options,
             UnityAction<string> onValueChangedCallback)
         {
-            var dropDownView = Instantiate(dropDownViewPrefab, container);
+            var dropDownView = Instantiate(dropDownViewPrefab, _container);
             dropDownView.SetLabel(labelText);
             dropDownView.SetOptions(options);
 

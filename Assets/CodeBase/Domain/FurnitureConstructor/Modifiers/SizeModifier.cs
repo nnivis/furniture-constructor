@@ -135,12 +135,12 @@ namespace CodeBase.Domain.FurnitureConstructor.Modifiers
             }
         }
 
-        private Morph FindMorph(FurnitureData data, MorphType type)
+        private Morph? FindMorph(FurnitureData data, MorphType type)
         {
             foreach (var part in data.Parts.Values)
             {
-                if (part.morphInfo != null &&
-                    part.morphInfo.label.Equals(type.ToString(), System.StringComparison.OrdinalIgnoreCase))
+                if (part.morphInfo.HasValue &&
+                    part.morphInfo.Value.label.Equals(type.ToString(), System.StringComparison.OrdinalIgnoreCase))
                     return part.morphInfo;
             }
 

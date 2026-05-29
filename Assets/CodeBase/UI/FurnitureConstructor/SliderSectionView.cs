@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CodeBase.Data.FurnitureConstructor;
 using TMPro;
 using UnityEngine;
@@ -8,13 +8,13 @@ namespace CodeBase.UI.FurnitureConstructor
 {
     public class SliderSectionView : MonoBehaviour
     {
-        [SerializeField] private Slider heightSlider;
-        [SerializeField] private Slider widthSlider;
-        [SerializeField] private Slider depthSlider;
+        [SerializeField] private Slider _heightSlider;
+        [SerializeField] private Slider _widthSlider;
+        [SerializeField] private Slider _depthSlider;
 
-        [SerializeField] private TextMeshProUGUI heightText;
-        [SerializeField] private TextMeshProUGUI widthText;
-        [SerializeField] private TextMeshProUGUI depthText;
+        [SerializeField] private TextMeshProUGUI _heightText;
+        [SerializeField] private TextMeshProUGUI _widthText;
+        [SerializeField] private TextMeshProUGUI _depthText;
 
         public event Action<MorphType, float> OnSizeChanged;
 
@@ -23,11 +23,10 @@ namespace CodeBase.UI.FurnitureConstructor
             float? widthMin, float? widthMax,
             float? depthMin, float? depthMax)
         {
-            SetupSlider(heightSlider, heightMin, heightMax, MorphType.Height, heightText);
-            SetupSlider(widthSlider, widthMin, widthMax, MorphType.Width, widthText);
-            SetupSlider(depthSlider, depthMin, depthMax, MorphType.Depth, depthText);
+            SetupSlider(_heightSlider, heightMin, heightMax, MorphType.Height, _heightText);
+            SetupSlider(_widthSlider, widthMin, widthMax, MorphType.Width, _widthText);
+            SetupSlider(_depthSlider, depthMin, depthMax, MorphType.Depth, _depthText);
         }
-
 
         private void SetupSlider(Slider slider, float? min, float? max, MorphType type, TextMeshProUGUI textElement)
         {
@@ -51,13 +50,11 @@ namespace CodeBase.UI.FurnitureConstructor
                 });
 
                 slider.gameObject.SetActive(true);
-
                 UpdateText(textElement, slider.value);
             }
             else
             {
                 slider.gameObject.SetActive(false);
-
                 UpdateText(textElement, min ?? 0);
             }
         }
@@ -65,9 +62,7 @@ namespace CodeBase.UI.FurnitureConstructor
         private void UpdateText(TextMeshProUGUI text, float value)
         {
             if (text != null)
-            {
                 text.text = $"{Mathf.RoundToInt(value * 100)}";
-            }
         }
     }
 }

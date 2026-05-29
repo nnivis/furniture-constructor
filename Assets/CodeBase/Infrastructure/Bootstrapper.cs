@@ -1,21 +1,20 @@
+using System.Collections.Generic;
 using CodeBase.Services.FurnitureConstructor;
+using CodeBase.UI.FurnitureConstructor;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure
 {
     public class Bootstrapper : MonoBehaviour
     {
-        [SerializeField] private GameObject gameObject1Example;
-        [SerializeField] private GameObject gameObject2Example;
-
-        [SerializeField] private FurnitureHandler furnitureHandler;
+        [SerializeField] private List<GameObject> _furniturePrefabs;
+        [SerializeField] private FurniturePresenter _furniturePresenter;
+        [SerializeField] private FurniturePanel _furniturePanel;
 
         private void Start()
         {
-            furnitureHandler.Initialize();
-
-            //furnitureHandler.GenerateFurniture(gameObject2Example);
-            furnitureHandler.GenerateFurniture(gameObject1Example);
+            var entryPoint = new FurnitureEntryPoint(_furniturePresenter, _furniturePanel, _furniturePrefabs);
+            entryPoint.Initialize();
         }
     }
 }

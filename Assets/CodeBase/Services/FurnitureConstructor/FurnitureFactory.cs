@@ -7,20 +7,15 @@ using UnityEngine;
 
 namespace CodeBase.Services.FurnitureConstructor
 {
-    public class FurnitureFactory
+    public class FurnitureFactory : IFurnitureFactory
     {
-        private const string Morph = "morph";
-        private const string Height = "height";
-        private const string Width = "width";
-        private const string Depth = "depth";
+        private readonly IFurnitureLoader _furnitureLoader;
+        private readonly Material _glassMaterial;
 
-        private readonly FurnitureLoader _furnitureLoader;
-        private readonly Modifier _modifier;
-
-        public FurnitureFactory(FurnitureLoader furnitureLoader, Material glassMaterial)
+        public FurnitureFactory(IFurnitureLoader furnitureLoader, Material glassMaterial)
         {
             _furnitureLoader = furnitureLoader;
-            _modifier = new Modifier(glassMaterial);
+            _glassMaterial = glassMaterial;
         }
 
         public Furniture CreateFurniture(GameObject prefab)
@@ -37,8 +32,9 @@ namespace CodeBase.Services.FurnitureConstructor
             SaveMorphUVs(prefab.transform, data);
             RemoveMorphElements(prefab.transform);
 
+            var modifier = new Modifier(_glassMaterial);
             var furnitureComponent = prefab.AddComponent<Furniture>();
-            furnitureComponent.Initialize(prefab, data, _modifier);
+            furnitureComponent.Initialize(prefab, data, modifier);
 
             return furnitureComponent;
         }
@@ -47,7 +43,7 @@ namespace CodeBase.Services.FurnitureConstructor
         {
             foreach (Transform child in parent)
             {
-                if (!child.name.ToLower().Contains(Morph)) continue;
+                if (!child.name.ToLower().Contains(FurnitureConstants.Morph)) continue;
 
                 if (child.childCount > 0)
                 {
@@ -79,9 +75,9 @@ namespace CodeBase.Services.FurnitureConstructor
         private MorphType? GetMorphType(string name)
         {
             var lowerName = name.ToLower();
-            if (lowerName.Contains(Height)) return MorphType.Height;
-            if (lowerName.Contains(Width)) return MorphType.Width;
-            if (lowerName.Contains(Depth)) return MorphType.Depth;
+            if (lowerName.Contains(FurnitureConstants.Height)) return MorphType.Height;
+            if (lowerName.Contains(FurnitureConstants.Width)) return MorphType.Width;
+            if (lowerName.Contains(FurnitureConstants.Depth)) return MorphType.Depth;
             return null;
         }
 
@@ -91,7 +87,7 @@ namespace CodeBase.Services.FurnitureConstructor
 
             foreach (Transform child in parent)
             {
-                if (child.name.ToLower().Contains(Morph))
+                if (child.name.ToLower().Contains(FurnitureConstants.Morph))
                 {
                     morphElements.Add(child);
                 }

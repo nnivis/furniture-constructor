@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace CodeBase.Data.FurnitureConstructor
@@ -39,7 +40,7 @@ namespace CodeBase.Data.FurnitureConstructor
 
         public void AddUV(MorphType type, string objectName, Vector2[] uv)
         {
-            int morphIndex = objectName.IndexOf("-morph", StringComparison.Ordinal);
+            int morphIndex = objectName.IndexOf(FurnitureConstants.MorphSuffix, StringComparison.Ordinal);
             if (morphIndex >= 0)
             {
                 objectName = objectName.Substring(0, morphIndex);
@@ -54,20 +55,17 @@ namespace CodeBase.Data.FurnitureConstructor
         public Vector2[] GetUV(MorphType type, string objectName)
         {
             if (MorphUVs.TryGetValue(type, out var uvDict) && uvDict.TryGetValue(objectName, out var uv))
-            {
                 return uv;
-            }
+
+            if (uvDict == null)
+                return null;
 
             foreach (var key in uvDict.Keys)
             {
                 if (key.StartsWith(objectName))
-                {
-                    Debug.Log($"Using partial match for {objectName} -> {key}");
                     return uvDict[key];
-                }
             }
 
-            //    Debug.LogWarning($"UV not found for {type} - Object: {objectName}");
             return null;
         }
 
@@ -94,11 +92,19 @@ namespace CodeBase.Data.FurnitureConstructor
     }
 
     [Serializable]
-    public class Morph
+    public readonly struct Morph
     {
-        public string label;
-        public float min;
-        public float max;
+        public readonly string label;
+        public readonly float min;
+        public readonly float max;
+
+        [JsonConstructor]
+        public Morph(string label, float min, float max)
+        {
+            this.label = label;
+            this.min = min;
+            this.max = max;
+        }
     }
 
     [Serializable]
@@ -106,7 +112,8 @@ namespace CodeBase.Data.FurnitureConstructor
     {
         public string label;
         public string types;
-        public string name_in_model;
+        [JsonProperty("name_in_model")]
+        public string nameInModel;
         public List<TypeInfo> typeInfo;
     }
 
@@ -119,20 +126,30 @@ namespace CodeBase.Data.FurnitureConstructor
     }
 
     [Serializable]
-    public class TypeInfo
+    public readonly struct TypeInfo
     {
-        public string label;
-        public string name_in_model;
-        public string texture;
+        public readonly string label;
+        [JsonProperty("name_in_model")]
+        public readonly string nameInModel;
+        public readonly string texture;
+        public readonly float width;
+        public readonly float height;
 
-        public float width;
-        public float height;
+        [JsonConstructor]
+        public TypeInfo(string label, string nameInModel, string texture, float width, float height)
+        {
+            this.label = label;
+            this.nameInModel = nameInModel;
+            this.texture = texture;
+            this.width = width;
+            this.height = height;
+        }
     }
 
     [Serializable]
     public class PartData
     {
-        public Morph morphInfo;
+        public Morph? morphInfo;
         public List<MaterialInfo> materials = new List<MaterialInfo>();
         public Dictionary<string, List<StyleInfo>> styles = new Dictionary<string, List<StyleInfo>>();
     }
@@ -150,10 +167,16 @@ namespace CodeBase.Data.FurnitureConstructor
     }
 
     [Serializable]
-    public class StyleInfo
+    public readonly struct StyleInfo
     {
-        public string label;
-        public string nameInModel;
+        public readonly string label;
+        public readonly string nameInModel;
+
+        public StyleInfo(string label, string nameInModel)
+        {
+            this.label = label;
+            this.nameInModel = nameInModel;
+        }
     }
 
     public enum MorphType

@@ -48,10 +48,10 @@ namespace CodeBase.Domain.FurnitureConstructor
             foreach (var part in Data.Parts)
             {
                 sb.AppendLine($"  Part Name: {part.Key}");
-                if (part.Value.morphInfo != null)
+                if (part.Value.morphInfo.HasValue)
                 {
-                    sb.AppendLine(
-                        $"    Morph Info: Label={part.Value.morphInfo.label}, Min={part.Value.morphInfo.min}, Max={part.Value.morphInfo.max}");
+                    var morph = part.Value.morphInfo.Value;
+                    sb.AppendLine($"    Morph Info: Label={morph.label}, Min={morph.min}, Max={morph.max}");
                 }
 
                 sb.AppendLine("    Materials:");

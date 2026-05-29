@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -6,34 +6,33 @@ namespace CodeBase.UI.FurnitureConstructor
 {
     public class DropDownView : MonoBehaviour
     {
-        [SerializeField] private TMP_Dropdown dropdown;
-        [SerializeField] private TextMeshProUGUI label;
+        [SerializeField] private TMP_Dropdown _dropdown;
+        [SerializeField] private TextMeshProUGUI _label;
 
-        public void SetLabel(string text) { if (label != null) label.text = text; }
+        public void SetLabel(string text) { if (_label != null) _label.text = text; }
 
         public void SetOptions(List<string> options)
         {
-            if (dropdown != null)
+            if (_dropdown != null)
             {
-                dropdown.ClearOptions();
-                dropdown.AddOptions(options);
+                _dropdown.ClearOptions();
+                _dropdown.AddOptions(options);
             }
         }
 
         public void AddOnValueChangedListener(UnityEngine.Events.UnityAction<int> callback)
         {
-            if (dropdown != null)
-                dropdown.onValueChanged.AddListener(callback);
+            if (_dropdown != null)
+                _dropdown.onValueChanged.AddListener(callback);
         }
 
         public void SetSelectedValue(string value)
         {
-            if (dropdown != null)
+            if (_dropdown != null)
             {
-                var index = dropdown.options.FindIndex(option => option.text == value);
-                if (index >= 0) {
-                    dropdown.SetValueWithoutNotify(index);
-                }
+                var index = _dropdown.options.FindIndex(option => option.text == value);
+                if (index >= 0)
+                    _dropdown.SetValueWithoutNotify(index);
             }
         }
     }

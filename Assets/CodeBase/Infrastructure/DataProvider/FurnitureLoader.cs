@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.DataProvider
 {
-    public class FurnitureLoader
+    public class FurnitureLoader : IFurnitureLoader
     {
         private const string DatabasePath = "DataBase/database";
         private Dictionary<string, List<TypeInfo>> _typeInfoDictionary;
@@ -146,7 +146,7 @@ namespace CodeBase.Infrastructure.DataProvider
                                         new MaterialInfo
                                         {
                                             label = material.label,
-                                            nameInModel = material.name_in_model,
+                                            nameInModel = material.nameInModel,
                                             texturePath = texturePath,
                                             textureLabel = type.label,
                                             width = type.width,
@@ -168,11 +168,7 @@ namespace CodeBase.Infrastructure.DataProvider
                                 data.AddStyle(
                                     style.label,
                                     style.types,
-                                    new StyleInfo
-                                    {
-                                        label = type.label,
-                                        nameInModel = type.name_in_model
-                                    }
+                                    new StyleInfo(type.label, type.nameInModel)
                                 );
                             }
                         }
