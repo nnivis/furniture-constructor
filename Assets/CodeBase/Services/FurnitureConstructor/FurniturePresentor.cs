@@ -13,6 +13,7 @@ namespace CodeBase.Services.FurnitureConstructor
         public event Action<Furniture> FurnitureCreated;
         public event Action<Furniture> FurnitureSelected;
 
+        [SerializeField] private FurnitureCatalog _catalog;
         [SerializeField] private Material _glassMaterial;
 
         private IFurnitureFactory _furnitureFactory;
@@ -26,19 +27,10 @@ namespace CodeBase.Services.FurnitureConstructor
             _furnitureFactory = new FurnitureFactory(loader, _glassMaterial);
         }
 
-        public void GenerateFurniture(GameObject prefab)
+        public void LoadCatalog()
         {
-            var furniture = _furnitureFactory.CreateFurniture(prefab);
-            if (furniture == null)
-            {
-                Debug.LogError($"Ошибка создания мебели: {prefab.name}");
-                return;
-            }
-
-            _currentFurniture = furniture;
-            _furnitures.Add(furniture);
-            UpdateVisibility();
-            FurnitureCreated?.Invoke(furniture);
+            foreach (var prefab in _catalog.Prefabs)
+                GenerateFurniture(prefab);
         }
 
         public void SelectFurniture(Furniture furniture)
@@ -56,6 +48,23 @@ namespace CodeBase.Services.FurnitureConstructor
 
         public void ApplySize(MorphType type, float value) =>
             _currentFurniture?.ApplyNewSize(type, value);
+
+        private void GenerateFurniture(GameObject prefab)
+        {
+            var instance = Instantiate(prefab);
+            instance.name = prefab.name;
+            var furniture = _furnitureFactory.CreateFurniture(instance);
+            if (furniture == null)
+            {
+                Debug.LogError($"Ошибка создания мебели: {prefab.name}");
+                return;
+            }
+
+            _currentFurniture = furniture;
+            _furnitures.Add(furniture);
+            UpdateVisibility();
+            FurnitureCreated?.Invoke(furniture);
+        }
 
         private void UpdateVisibility()
         {

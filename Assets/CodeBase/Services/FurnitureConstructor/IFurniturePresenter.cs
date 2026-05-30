@@ -12,7 +12,7 @@ namespace CodeBase.Services.FurnitureConstructor
         event Action<Furniture> FurnitureCreated;
         event Action<Furniture> FurnitureSelected;
         void Initialize();
-        void GenerateFurniture(GameObject prefab);
+        void LoadCatalog();
         void SelectFurniture(Furniture furniture);
         void ApplyMaterial(string label, string textureName);
         void ApplyStyle(string key, string label);
