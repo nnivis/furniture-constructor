@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Data.FurnitureConstructor;
 using CodeBase.Domain.FurnitureConstructor;
-using CodeBase.Infrastructure.DataProvider;
 using UnityEngine;
 
 namespace CodeBase.Services.FurnitureConstructor
@@ -14,17 +13,14 @@ namespace CodeBase.Services.FurnitureConstructor
         public event Action<Furniture> FurnitureSelected;
 
         [SerializeField] private FurnitureCatalog _catalog;
-        [SerializeField] private Material _glassMaterial;
 
         private IFurnitureFactory _furnitureFactory;
         private Furniture _currentFurniture;
         private readonly List<Furniture> _furnitures = new List<Furniture>();
 
-        public void Initialize()
+        public void Initialize(IFurnitureFactory factory)
         {
-            IFurnitureLoader loader = new FurnitureLoader();
-            loader.LoadDatabase();
-            _furnitureFactory = new FurnitureFactory(loader, _glassMaterial);
+            _furnitureFactory = factory;
         }
 
         public void LoadCatalog()

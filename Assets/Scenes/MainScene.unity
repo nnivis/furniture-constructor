@@ -3662,6 +3662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _furniturePresenter: {fileID: 1731881352}
   _furniturePanel: {fileID: 613555695}
+  _glassMaterial: {fileID: 2100000, guid: aceda0627a37582419e300d4f330169f, type: 2}
 --- !u!1 &1538847543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3982,7 +3983,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Services.FurnitureConstructor.FurniturePresenter
   _catalog: {fileID: 11400000, guid: 841b84597cb338a418caf0fd0a6653ff, type: 2}
-  _glassMaterial: {fileID: 2100000, guid: aceda0627a37582419e300d4f330169f, type: 2}
 --- !u!4 &1731881353
 Transform:
   m_ObjectHideFlags: 0

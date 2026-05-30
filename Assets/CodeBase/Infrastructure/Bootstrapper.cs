@@ -8,10 +8,11 @@ namespace CodeBase.Infrastructure
     {
         [SerializeField] private FurniturePresenter _furniturePresenter;
         [SerializeField] private FurniturePanel _furniturePanel;
+        [SerializeField] private Material _glassMaterial;
 
         private void Start()
         {
-            var entryPoint = new FurnitureEntryPoint(_furniturePresenter, _furniturePanel);
+            var entryPoint = new FurnitureEntryPoint(_furniturePresenter, _furniturePanel, _glassMaterial);
             entryPoint.Initialize();
         }
     }

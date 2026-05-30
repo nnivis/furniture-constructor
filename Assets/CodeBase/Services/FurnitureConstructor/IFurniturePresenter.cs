@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Data.FurnitureConstructor;
 using CodeBase.Domain.FurnitureConstructor;
-using UnityEngine;
 
 namespace CodeBase.Services.FurnitureConstructor
 {
@@ -11,7 +10,7 @@ namespace CodeBase.Services.FurnitureConstructor
         IEnumerable<Furniture> Furnitures { get; }
         event Action<Furniture> FurnitureCreated;
         event Action<Furniture> FurnitureSelected;
-        void Initialize();
+        void Initialize(IFurnitureFactory factory);
         void LoadCatalog();
         void SelectFurniture(Furniture furniture);
         void ApplyMaterial(string label, string textureName);
