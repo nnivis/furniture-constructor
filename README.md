@@ -1,235 +1,70 @@
 # Furniture Constructor
 
-A Unity-based furniture customization prototype focused on runtime model configuration, modular modification logic, and data-driven UI generation.
+🇷🇺 [Читать на русском](README.ru.md)
 
-The project demonstrates a furniture constructor system where furniture items can be loaded from structured data and modified through runtime controls such as size, material, style, and visibility options.
-
-> Portfolio project by Yana Shushkina  
-> Unity / C# / Runtime UI / Data-driven architecture
+A Unity prototype for configuring furniture objects at runtime — switch materials, styles, and sizes through a data-driven UI.
 
 ---
 
-## Overview
+## Demo
 
-Furniture Constructor is a Unity prototype for configuring furniture objects at runtime.
+> Coming soon
 
-The system is built around a structured furniture database and a set of modifier classes responsible for applying changes to the selected model. Instead of hardcoding every furniture variation directly in the scene, the project uses external structured data to describe available furniture categories, morph parameters, materials, styles, and model parts.
+---
 
-The main goal of the project was to explore how a configurable 3D product constructor can be organized in Unity using a clear separation between data, domain logic, services, infrastructure, and UI.
+## About
+
+Furniture Constructor is a portfolio project focused on clean architecture in Unity. Furniture items are defined in a structured JSON database and loaded at runtime. Users can select a model and adjust its material, style, and dimensions through a panel-based UI. Each modifier type is isolated into its own class, keeping the domain layer clean and extensible.
 
 ---
 
 ## Features
 
-- Runtime furniture generation from predefined data
-- Furniture category and object data model
-- Material switching by furniture part
-- Style switching by configurable keys and labels
-- Size modification using morph-like parameters
-- UV data handling for modified mesh parts
-- UI controls for furniture customization
-- Modular modifier system for extending object behavior
-- Layered project structure:
-  - `Data`
-  - `Domain`
-  - `Infrastructure`
-  - `Services`
-  - `UI`
+- Runtime furniture spawning from a `FurnitureCatalog` ScriptableObject
+- Material switching per furniture part
+- Style switching via configurable keys
+- Size modification using blend shape morphing
+- UV data handling for morphed mesh parts
+- Data-driven UI — dropdowns and sliders generated from furniture data
+- Visibility toggle — only the selected model is shown
 
 ---
 
-## Technical Highlights
+## Architecture
 
-### Data-driven configuration
-
-Furniture data is represented through serializable C# models and loaded from a structured database. The data includes:
-
-- furniture categories
-- furniture objects
-- morph parameters
-- material options
-- style options
-- part-specific customization data
-
-This allows furniture behavior and customization options to be described outside of scene logic.
-
-### Modifier-based architecture
-
-The customization logic is separated into modifier classes:
-
-- `SizeModifier`
-- `MaterialModifier`
-- `StyleModifier`
-- `BlockStackModifier`
-- base `Modifier`
-
-This keeps the furniture object itself relatively clean and makes it easier to extend the system with new modification types.
-
-### Runtime UI
-
-The UI layer contains reusable view components for dropdowns, sliders, furniture panels, and visibility controls. These components are used to expose available customization options to the user at runtime.
-
-### Separation of responsibilities
-
-The project is organized into several code layers:
-
-```text
-Assets/CodeBase
-├── Data
-├── Domain
-├── Infrastructure
-├── Services
-└── UI
-```
-
-This structure separates raw data models, business/domain logic, loading infrastructure, runtime services, and presentation logic.
+| Pattern | Implementation |
+|---|---|
+| Entry Point | `FurnitureEntryPoint` — wires presenter, panel and catalog in the correct order |
+| Presenter | `FurniturePresenter` — orchestrates creation, selection and modification |
+| Interfaces | `IFurniturePresenter`, `IFurnitureLoader`, `IFurnitureFactory` |
+| Modifier system | `SizeModifier`, `MaterialModifier`, `StyleModifier` — one responsibility per type |
+| Data layer | `FurnitureCatalog` SO + JSON database via Newtonsoft.Json |
+| UI | `FurniturePanel` with `Bind / Unbind` — no upward events, calls presenter directly |
 
 ---
 
 ## Tech Stack
 
-- Unity
-- C#
-- Universal Render Pipeline
-- Unity UI
-- Unity Input System
-- Newtonsoft Json
-- glTFast
-- TextMesh Pro
+- **Engine:** Unity 6000.3 LTS
+- **Language:** C#
+- **Render Pipeline:** URP
+- **3D Format:** glTFast
+- **UI:** TextMeshPro
+- **Serialization:** Newtonsoft.Json
 
 ---
 
-## Project Structure
+## Getting Started
 
-```text
-Assets/
-├── CodeBase/
-│   ├── Data/
-│   │   └── FurnitureConstructor/
-│   │       └── FurnitureData.cs
-│   │
-│   ├── Domain/
-│   │   └── FurnitureConstructor/
-│   │       ├── Furniture.cs
-│   │       └── Modifiers/
-│   │
-│   ├── Infrastructure/
-│   │   ├── Bootstrapper.cs
-│   │   └── DataProvider/
-│   │       └── FurnitureLoader.cs
-│   │
-│   ├── Services/
-│   │   └── FurnitureConstructor/
-│   │
-│   └── UI/
-│       └── FurnitureConstructor/
-│
-├── Resources/
-├── Scenes/
-└── Settings/
-```
+1. Clone the repository
+2. Open in Unity 6000.3 or newer
+3. Open `Assets/Scenes/SampleScene`
+4. Create a `FurnitureCatalog` asset: `Assets → Create → FurnitureConstructor → Catalog`
+5. Add furniture prefabs to the catalog and assign it to `FurniturePresenter` in the Inspector
+6. Press Play
 
 ---
 
-## Main Systems
+## Contact
 
-### Furniture Data Model
-
-The data layer describes all information needed to construct and modify furniture objects:
-
-- model name
-- start size value
-- morph options
-- material groups
-- style groups
-- part-specific material/style data
-- UV data for modified meshes
-
-### Furniture Loader
-
-`FurnitureLoader` is responsible for loading the furniture database from Unity Resources, preparing the JSON content, deserializing it, and building lookup data for runtime usage.
-
-### Furniture Entity
-
-`Furniture` acts as a runtime component that stores the current furniture data and delegates customization actions to the modifier system.
-
-Supported operations include:
-
-```csharp
-ApplyNewMaterial(...)
-ApplyNewStyle(...)
-ApplyNewSize(...)
-```
-
-### Modifier System
-
-Modifiers encapsulate the logic for applying specific types of changes to the furniture model. This makes the system easier to extend without putting all customization logic into one monolithic class.
-
-### UI Layer
-
-The UI layer contains view components for interacting with the constructor:
-
-- dropdown-based options
-- slider-based size controls
-- furniture selection panel
-- visibility panel
-
----
-
-## How to Run
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/nnivis/furnitureConstructor_1223id.git
-```
-
-2. Open the project in Unity.
-
-3. Open the main scene:
-
-```text
-Assets/Scenes/SampleScene.unity
-```
-
-4. Press Play.
-
----
-
-## Current Status
-
-The project is a working prototype focused on the architecture and core logic of a runtime furniture constructor.
-
-Implemented:
-
-- data loading
-- furniture runtime initialization
-- modifier-based customization
-- material/style/size change logic
-- UI components for interaction
-
-Planned improvements:
-
-- add a polished demo scene
-- add screenshots and GIFs to README
-- improve UI visual design
-- add more furniture presets
-- add WebGL build
-- add automated validation for furniture data
-- improve naming and cleanup for public portfolio presentation
-
----
-
-## Portfolio Notes
-
-This project demonstrates:
-
-- Unity runtime systems development
-- C# architecture organization
-- data-driven feature implementation
-- UI-to-domain interaction
-- runtime model customization
-- separation of concerns in a Unity project
-
-The project is intended as a portfolio example for Unity Developer positions.
-
+- GitHub: [nnivis](https://github.com/nnivis)
